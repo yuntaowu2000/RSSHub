@@ -17,14 +17,11 @@ jobs:
     - name: 'set up git'
       run: |
         git config pull.rebase true
+        git remote add upstream https://github.com/DIYgod/RSSHub/
         git config user.name ${{ secrets.GIT_USER }}
         git config user.email ${{ secrets.GIT_EMAIL }}
-    - name: 'pull upstream'
-      id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v1
-      with:
-        upstream_repository: DIYgod/RSSHub
-        upstream_branch: master
+        git reset --hard upstream/master
+        git pull upstream master
     - name: 'write yaml'
       run: |
         touch app.yaml
