@@ -16,7 +16,7 @@ jobs:
         ref: master
     - name: 'pull upstream'
       id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v3-rewrite
+      uses: aormsby/Fork-Sync-With-Upstream-action@v3
       with:
         upstream_sync_repo: DIYgod/RSSHub
         upstream_sync_branch: master
