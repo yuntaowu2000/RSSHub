@@ -2,7 +2,7 @@ name: deployToCloud
 
 on:
   schedule:
-    - cron: '0 7 * * 1,3,5'
+    - cron: '0 7 1,15 * *'
   push:
     branches: [master]
 
@@ -27,17 +27,25 @@ jobs:
         git_config_user: ${{ secrets.GIT_USER }}
         git_config_email: ${{ secrets.GIT_EMAIL }}
     - name: 'write yaml'
+      if: steps.sync.outputs.has_new_commits == 'true'
       run: |
         touch app.yaml
         echo "${{secrets.APP_YAML}}" >> app.yaml
-    - id: 'auth'
+    - name: auth
+      id: 'auth'
+      if: steps.sync.outputs.has_new_commits == 'true'
       uses: 'google-github-actions/auth@v0'
       with:
         credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
     - name: 'Deploy to App Engine'
+      if: steps.sync.outputs.has_new_commits == 'true'
       uses: 'google-github-actions/deploy-appengine@v0'
       with:
         deliverables: 'app.yaml'
         promote: false
         version: 'v1'
+    
+    - name: 'no new changes found'
+      if: steps.sync.outputs.has_new_commits == 'false'
+      run: echo "There were no new commits."
