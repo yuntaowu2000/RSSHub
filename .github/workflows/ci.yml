@@ -16,7 +16,6 @@ jobs:
         ref: master
     - name: 'set up git'
       run: |
-        cd 
         git config pull.rebase true
         git config user.name ${{ secrets.GIT_USER }}
         git config user.email ${{ secrets.GIT_EMAIL }}
