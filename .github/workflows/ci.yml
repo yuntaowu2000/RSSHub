@@ -20,7 +20,6 @@ jobs:
       with:
         upstream_sync_repo: DIYgod/RSSHub
         upstream_sync_branch: master
-        test_mode: true
         target_sync_branch: master
         target_repo_token: ${{ secrets.GH_TOKEN }}
         upstream_pull_args: '--ff-only --tags'
