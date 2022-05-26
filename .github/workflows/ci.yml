@@ -20,6 +20,12 @@ jobs:
       with:
         upstream_repository: DIYgod/RSSHub
         upstream_branch: master
+        target_sync_branch: master
+        target_repo_token: ${{ secrets.GH_TOKEN }}
+        upstream_pull_args: '--ff-only --tags'
+        target_branch_push_args: '--force'
+        git_config_user: ${{ secrets.GIT_USER }}
+        git_config_email: ${{ secrets.GIT_EMAIL }}
     - name: 'write yaml'
       run: |
         touch app.yaml
