@@ -22,7 +22,7 @@ jobs:
         upstream_sync_branch: master
         target_sync_branch: master
         target_repo_token: ${{ secrets.GH_TOKEN }}
-        upstream_pull_args: '--rebase --skip'
+        upstream_pull_args: '--rebase --ff -f'
         target_branch_push_args: '--force'
         git_config_user: ${{ secrets.GIT_USER }}
         git_config_email: ${{ secrets.GIT_EMAIL }}
