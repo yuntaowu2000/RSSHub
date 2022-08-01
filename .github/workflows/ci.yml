@@ -45,7 +45,3 @@ jobs:
         deliverables: 'app.yaml'
         promote: false
         version: 'v1'
-    
-    - name: 'no new changes found'
-      if: steps.sync.outputs.has_new_commits == 'false'
-      run: echo "There were no new commits."
