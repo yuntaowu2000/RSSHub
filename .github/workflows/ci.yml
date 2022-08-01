@@ -13,33 +13,19 @@ jobs:
     - name: 'checkout upstream'
       uses: actions/checkout@v2
       with:
+        name: DIYgod/RSSHub
         ref: master
-    - name: 'pull upstream'
-      id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v3.2
-      with:
-        upstream_sync_repo: DIYgod/RSSHub
-        upstream_sync_branch: master
-        target_sync_branch: master
-        target_repo_token: ${{ secrets.GH_TOKEN }}
-        upstream_pull_args: '--ff-only --tags'
-        target_branch_push_args: '--force'
-        git_config_user: ${{ secrets.GIT_USER }}
-        git_config_email: ${{ secrets.GIT_EMAIL }}
     - name: 'write yaml'
-      if: steps.sync.outputs.has_new_commits == 'true'
       run: |
         touch app.yaml
         echo "${{secrets.APP_YAML}}" >> app.yaml
     - name: auth
       id: 'auth'
-      if: steps.sync.outputs.has_new_commits == 'true'
       uses: 'google-github-actions/auth@v0'
       with:
         credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
     - name: 'Deploy to App Engine'
-      if: steps.sync.outputs.has_new_commits == 'true'
       uses: 'google-github-actions/deploy-appengine@v0'
       with:
         deliverables: 'app.yaml'
