@@ -14,8 +14,11 @@ jobs:
     - name: 'checkout upstream'
       uses: actions/checkout@v2
       with:
-        name: DIYgod/RSSHub
+        repository: DIYgod/RSSHub
         ref: master
+    - name: 'change directory'
+      run: |
+        cd /home/runner/work/RSSHub/RSSHub
     - name: 'write yaml'
       run: |
         touch app.yaml
